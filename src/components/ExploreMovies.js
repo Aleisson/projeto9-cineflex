@@ -42,15 +42,30 @@ function ExploreMovies() {
     const [posters, setPosters] = useState([]);
 
 
+    useEffect(() =>{
+
+        const promise = axios.get(movies);
+
+        promise.then(
+            (res) =>{
+                // console.log(res.data);
+                setPosters(res.data);
+            }
+        );
+
+
+    },[]);
+
+
+
     return (
 
         <Posters>
             <p>Selecione o filme</p>
             <div>
-                <Poster posterURL="https://image.tmdb.org/t/p/w500/riYInlsq2kf1AWoGm80JQW5dLKp.jpg" title="Enola Holmes" />
-                <Poster posterURL="https://image.tmdb.org/t/p/w500/riYInlsq2kf1AWoGm80JQW5dLKp.jpg" title="Enola Holmes" />
-                <Poster posterURL="https://image.tmdb.org/t/p/w500/riYInlsq2kf1AWoGm80JQW5dLKp.jpg" title="Enola Holmes" />
-                <Poster posterURL="https://image.tmdb.org/t/p/w500/riYInlsq2kf1AWoGm80JQW5dLKp.jpg" title="Enola Holmes" />
+                {posters.map(
+                    (poster) => <Poster posterURL={poster.posterURL} title={poster.title} />
+                )}
             </div>
         </Posters>
     );
@@ -59,8 +74,10 @@ function ExploreMovies() {
 const Posters = styled.div`
 
     width: 100%;
-    height: 400px; 
+    height: auto; 
     margin-top:100px;
+    margin-bottom: 100px;
+    
     
 
     p{
