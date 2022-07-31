@@ -3,38 +3,9 @@ import { useState, useEffect } from 'react'; //hook
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-const movies = "https://mock-api.driven.com.br/api/v7/cineflex/movies";
+import Poster from './Poster';
 
-
-function Poster({ idMovie, title, posterURL }) {
-
-    return (
-        <PosterStyle>
-            <img src={posterURL} alt={title ? title : ""} />
-        </PosterStyle>
-    );
-
-
-}
-
-
-const PosterStyle = styled.div`
-
-    background: #FFFFFF;
-    box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.1);
-    border-radius: 3px;
-    width: 145px;
-    height: 209px;
-    padding: 8px;
-    margin: 8px;
-   
-
-    img{
-        width: 100%;
-        height: 100%;
-    }
-`;
-
+const urlMovies = "https://mock-api.driven.com.br/api/v7/cineflex/movies";
 
 
 function ExploreMovies() {
@@ -42,19 +13,19 @@ function ExploreMovies() {
     const [posters, setPosters] = useState([]);
 
 
-    useEffect(() =>{
+    useEffect(() => {
 
-        const promise = axios.get(movies);
+        const promise = axios.get(urlMovies);
 
         promise.then(
-            (res) =>{
+            (res) => {
                 // console.log(res.data);
                 setPosters(res.data);
             }
         );
 
 
-    },[]);
+    }, []);
 
 
 
@@ -64,7 +35,7 @@ function ExploreMovies() {
             <p>Selecione o filme</p>
             <div>
                 {posters.map(
-                    (poster) => <Poster posterURL={poster.posterURL} title={poster.title} />
+                    (poster) => <Poster idMovie={poster.id} posterURL={poster.posterURL} title={poster.title} />
                 )}
             </div>
         </Posters>
@@ -89,10 +60,9 @@ const Posters = styled.div`
         display: flex;
         align-items: center;
         text-align: center;
+        justify-content: center;
         letter-spacing: 0.04em;
         color: #293845;
-        display:flex;
-        justify-content: center;
         width: 100%;
         height: 110px;
     }
