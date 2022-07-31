@@ -14,7 +14,7 @@ function App() {
             <Topo />
             <Routes>
                 <Route path="/" element={<ExploreMovies />} />
-                <Route path="/sessoes/:idFilme" element={<MoviePage />} />
+                <Route path="/sessoes/:idMovie" element={<MoviePage />} />
             </Routes>
         </BrowserRouter>
     );

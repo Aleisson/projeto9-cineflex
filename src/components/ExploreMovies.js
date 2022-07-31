@@ -5,11 +5,11 @@ import styled from 'styled-components';
 
 import Poster from './Poster';
 
-const urlMovies = "https://mock-api.driven.com.br/api/v7/cineflex/movies";
+
 
 
 function ExploreMovies() {
-
+    const urlMovies = "https://mock-api.driven.com.br/api/v7/cineflex/movies";
     const [posters, setPosters] = useState([]);
 
 

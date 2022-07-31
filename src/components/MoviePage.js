@@ -3,22 +3,54 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
 
+function Horario({ weekday, date, showtimes }) {
+
+
+    return (
+        <StyledHorario>
+            <span>{weekday} - {date}</span>
+            {showtimes? showtimes.map(x => <div>{x.name}</div>) : "Sem Horario"}
+        </StyledHorario>
+    );
+
+
+}
+
+
 function MoviePage() {
+    const urlMovies = "https://mock-api.driven.com.br/api/v7/cineflex/movies";
+    const { idMovie } = useParams();
+
+    const [horarios, setHorarios] = useState([]);
+
+    // console.log("ID Movie " + idMovie);
+
+    useEffect(() => {
+
+        // alert(urlMovies + `/${idMovie}/showtimes`)
+
+        const promise = axios.get(urlMovies + `/${idMovie}/showtimes`);
+
+        promise.then(
+            (res) => {
+                // console.log(res.data);
+                setHorarios(res.data);
+            }
+        );
+
+
+    }, []);
+
+
 
     return (
         <Movie>
             <p>Selecione o horário</p>
             <Horarios>
-                <Horario>
-                    <span>Quinta-feira - 24/06/2021</span>
-                    <div>15:00</div>
-                    <div>19:00</div>
-                </Horario>
-                <Horario>
-                    <span>Quinta-feira - 24/06/2021</span>
-                    <div>15:00</div>
-                    <div>19:00</div>
-                </Horario>
+                <Horario date={"24/05/2022"} weekday={"Domingo"} showtimes ={[{
+                    "name": "15:00",
+                    "id": 1
+                }]} ></Horario>
             </Horarios>
         </ Movie>
     );
@@ -64,7 +96,11 @@ const Horarios = styled.div`
   
 `
 
-const Horario = styled.div`
+
+
+
+
+const StyledHorario = styled.div`
 
     display:flex;
     flex-wrap: wrap;
