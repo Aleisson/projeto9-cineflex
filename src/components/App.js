@@ -9,9 +9,12 @@ function App() {
 
 
     return (
-        <>
+        <BrowserRouter>
             <Topo />
-        </>
+            <Routes>
+                <Route path="/" element={} />
+            </Routes>
+        </BrowserRouter>
     );
 
 }
