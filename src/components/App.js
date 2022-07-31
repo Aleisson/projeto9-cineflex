@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import Topo from "./Topo";
-
+import ExploreMovies from "./ExploreMovies";
 
 function App() {
 
@@ -12,7 +12,7 @@ function App() {
         <BrowserRouter>
             <Topo />
             <Routes>
-                <Route path="/" element={} />
+                <Route path="/" element={<ExploreMovies />} />
             </Routes>
         </BrowserRouter>
     );
