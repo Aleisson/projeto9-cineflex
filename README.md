@@ -17,7 +17,7 @@ Deploy projeto:#
 
 Tutor: Ernesto Junior da Turma 7 do grupo 2 - Driven.
 
-Aluno: Caio Aleisson Almeida Araujo
+Aluno: Caio Aleisson 
 
 Observação importante:
 Projeto desenvolvido usando templates react:

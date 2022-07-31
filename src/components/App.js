@@ -1,18 +1,18 @@
 import React from "react";
+import Topo from "./Topo";
 
 
 function App() {
 
-    
+
 
     return (
-    
-        <div class="content">
-            <h1>Ola Tudo bem?</h1>
-        </div>
-    
+        <>
+            <Topo />
+        </>
     );
 
 }
 
 export default App;
+
