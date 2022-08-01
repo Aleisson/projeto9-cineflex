@@ -19,7 +19,8 @@ function Horario({ weekday, date, showtimes }) {
 
 function MoviePage() {
  
-    const [horarios, setHorarios] = useState({});
+   
+    const [horarios, setHorarios] =  useState({})
     const { idMovie } = useParams();
 
     
@@ -27,7 +28,7 @@ function MoviePage() {
     // console.log("ID Movie " + idMovie);
 
     useEffect(() => {
-
+       
         // alert(urlMovies + `/${idMovie}/showtimes`)
 
         const promise = axios.get( `https://mock-api.driven.com.br/api/v7/cineflex/movies/${idMovie}/showtimes`);
@@ -40,9 +41,8 @@ function MoviePage() {
         );
 
 
-    });
+    }, []);
 
-    console.log(horarios)
 
 
     return (
