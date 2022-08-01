@@ -5,9 +5,9 @@ import styled from 'styled-components';
 
 function SessaoMovie() {
 
-    const{idSessao} = useParams();
+    const { idSessao } = useParams();
     const [sessao, setSessao] = useState({});
-    
+
     useEffect(() => {
 
         const promise = axios.get(`https://mock-api.driven.com.br/api/v7/cineflex/showtimes/${idSessao}/seats`);
@@ -22,20 +22,30 @@ function SessaoMovie() {
 
     }, []);
 
-  
+
 
 
     return (
         <StyledSessao>
             <p>Selecione o(s) assento(s)</p>
-            {sessao.seats? 
-            <StyleAssentos>
-                <div>{sessao.seats.map((assento) => <Lugares name={assento.name} />)}</div>
-                
-                
-            </StyleAssentos>    
-            : <h1>Carregando...</h1>}
-            
+            {sessao.seats ?
+                <StyleAssentos>
+                    <div>{sessao.seats.map((assento) => <Lugares name={assento.name} />)}</div>
+                    <Display>
+                        <Lugares />
+                        <Lugares />
+                        <Lugares />
+                    </Display>
+                    <form>
+                        <label for="campoNome">Nome do Comprador:</label><br />
+                        <input type="text" id="campoNome" /><br />
+                        <label for="campoCPF">CPF do Comprador:</label> <br />
+                        <input type="text" id="campoCPF" /><br />
+                    </form>
+
+                </StyleAssentos>
+                : <h1>Carregando...</h1>}
+
         </StyledSessao>
 
     );
@@ -79,6 +89,24 @@ const StyledSessao = styled.div`
         align-items: center;
     }
 
+
+    label{
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 21px;
+        display: flex;
+        align-items: center;
+    }
+
+    input{
+        width: 327px;
+        height: 51px;
+        background: #FFFFFF;
+        border: 1px solid #D5D5D5;
+        border-radius: 3px;
+    }
 `;
 
 const StyleAssentos = styled.div`
@@ -99,8 +127,8 @@ const StyleAssentos = styled.div`
 `;
 
 
-function Lugares({id, name, isAvaible}){
-    return(
+function Lugares({ id, name, isAvaible }) {
+    return (
         <StyleLugares>
             <p>{name}</p>
         </StyleLugares>
@@ -131,3 +159,10 @@ const StyleLugares = styled.div`
     }
 
 `;
+
+const Display = styled.div`
+
+    width:100%;
+    height:100px !important; 
+    background-color: red;
+`
