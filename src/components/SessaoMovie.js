@@ -22,14 +22,20 @@ function SessaoMovie() {
 
     }, []);
 
+  
 
 
     return (
         <StyledSessao>
             <p>Selecione o(s) assento(s)</p>
+            {sessao.seats? 
             <StyleAssentos>
-
-            </StyleAssentos>
+                <div>{sessao.seats.map((assento) => <Lugares name={assento.name} />)}</div>
+                
+                
+            </StyleAssentos>    
+            : <h1>Carregando...</h1>}
+            
         </StyledSessao>
 
     );
@@ -46,6 +52,10 @@ const StyledSessao = styled.div`
     margin-top:100px;
     margin-bottom: 110px;
     padding: 10px;
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+    
     
     p{
         font-family: 'Roboto';
@@ -63,6 +73,12 @@ const StyledSessao = styled.div`
         height: 80px;
     }
 
+    && div{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
 `;
 
 const StyleAssentos = styled.div`
@@ -70,4 +86,48 @@ const StyleAssentos = styled.div`
     display:flex;
     flex-direction:column;
     justify-content:space-around;
+
+    && > div{
+        width: 300px;
+        height: 300px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+       
+        
+    }
+`;
+
+
+function Lugares({id, name, isAvaible}){
+    return(
+        <StyleLugares>
+            <p>{name}</p>
+        </StyleLugares>
+    );
+}
+
+const StyleLugares = styled.div`
+    width: 26px;
+    height: 26px;
+    background: #C3CFD9;
+    border: 1px solid #808F9D;
+    border-radius: 12px;
+    display: flex;
+    justify-items: center;
+    align-items:center;
+
+    && p{
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 11px;
+        line-height: 13px;
+        display: flex;
+        align-items: center;
+        text-align: center;
+        letter-spacing: 0.04em;
+        color: #000000;
+    }
+
 `;
