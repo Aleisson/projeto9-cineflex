@@ -9,7 +9,7 @@ function Horario({ weekday, date, showtimes }) {
     return (
         <StyledHorario>
             <span>{weekday} - {date}</span>
-            {showtimes? showtimes.map(x => <div>{x.name}</div>) : "Sem Horario"}
+            {showtimes ? showtimes.map(x => <div>{x.name}</div>) : "Sem Horario"}
         </StyledHorario>
     );
 
@@ -18,10 +18,11 @@ function Horario({ weekday, date, showtimes }) {
 
 
 function MoviePage() {
-    const urlMovies = "https://mock-api.driven.com.br/api/v7/cineflex/movies";
+ 
+    const [horarios, setHorarios] = useState({});
     const { idMovie } = useParams();
 
-    const [horarios, setHorarios] = useState([]);
+    
 
     // console.log("ID Movie " + idMovie);
 
@@ -29,7 +30,7 @@ function MoviePage() {
 
         // alert(urlMovies + `/${idMovie}/showtimes`)
 
-        const promise = axios.get(urlMovies + `/${idMovie}/showtimes`);
+        const promise = axios.get( `https://mock-api.driven.com.br/api/v7/cineflex/movies/${idMovie}/showtimes`);
 
         promise.then(
             (res) => {
@@ -39,18 +40,18 @@ function MoviePage() {
         );
 
 
-    }, []);
+    });
 
+    console.log(horarios)
 
 
     return (
         <Movie>
             <p>Selecione o horário</p>
             <Horarios>
-                <Horario date={"24/05/2022"} weekday={"Domingo"} showtimes ={[{
-                    "name": "15:00",
-                    "id": 1
-                }]} ></Horario>
+
+            {horarios.days.map((day) => <Horario weekday={day.weekday} date={day.date} showtimes={day.showtimes}/>)}
+                
             </Horarios>
         </ Movie>
     );
