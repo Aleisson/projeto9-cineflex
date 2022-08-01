@@ -1,6 +1,5 @@
 import axios from 'axios';
-import { useState, useEffect } from 'react'; //hook
-
+import { useState, useEffect } from 'react'; 
 import styled from 'styled-components';
 
 import Poster from  './Poster';

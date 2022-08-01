@@ -1,15 +1,21 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
 import Bottom from "./Bottom";
 
 
-function SessaoMovie() {
+function SessaoMovie({ popIngresso }) {
+
+
 
     const { idSessao } = useParams();
     const [sessao, setSessao] = useState({});
     const [ids, setIds] = useState([]);
+    const [numCadeira, setNumCadeira] = useState([])
+    const [nome, setNome] = useState("");
+    const [CPF, setCPF] = useState("");
+    const [post, setPost] = useState({});
 
     useEffect(() => {
 
@@ -26,16 +32,43 @@ function SessaoMovie() {
     }, []);
 
 
-    function addIds(id) {
+    function addCadeiras(id,name) {
         setIds([...ids, id]);
+        setNumCadeira([...numCadeira,name])
     }
 
-    function removeIds(id) {
+    function removeCadeiras(id,name) {
         setIds(ids.filter(x => x !== id));
+        setNumCadeira(numCadeira.filter(x => x !== name))
     }
 
-    console.log("IDS: " + ids);
 
+    function postSeat() {
+
+        // console.log(`{ids: ${ids}, name: ${nome}, cpf: ${CPF}}`)
+
+        const post = axios.post("https://mock-api.driven.com.br/api/v7/cineflex/seats/book-many", { ids: ids, name: nome, cpf: CPF });
+
+        
+        
+        popIngresso(sessao.movie.title,`${sessao.day.weekday} - ${sessao.day.date}`, numCadeira, ids, nome, CPF);
+
+
+        
+        setPost()
+        setIds([]);
+        setNome("");
+        setCPF("");
+
+        post.then(x => console.log(x.status));
+       
+
+    }
+
+     console.log("IDS: " + ids);
+     console.log("NumCadeira: " + numCadeira);
+    // console.log("Nome: " + nome);
+    // console.log("CPF: " + CPF);
 
     return (
 
@@ -43,7 +76,7 @@ function SessaoMovie() {
             <p>Selecione o(s) assento(s)</p>
             {sessao.seats ?
                 <StyleAssentos>
-                    <div>{sessao.seats.map((assento) => <Lugares idSessao={assento.id} name={assento.name} isAvailable={assento.isAvailable} addIds={addIds} removeIds={removeIds} />)}</div>
+                    <div>{sessao.seats.map((assento) => <Lugares idAssento={assento.id} name={assento.name} isAvailable={assento.isAvailable} addIds={addCadeiras} removeIds={removeCadeiras} />)}</div>
                     <Display>
                         <div>
                             <BolinhaVerde />
@@ -61,13 +94,16 @@ function SessaoMovie() {
                     </Display>
                     <form>
                         <label for="campoNome">Nome do Comprador:</label><br />
-                        <input placeholder='Digite seu nome...' type="text" id="campoNome" /><br />
+                        <input placeholder='Digite seu nome...' type="text" id="campoNome" value={nome} onChange={e => setNome(e.target.value)} /><br />
                         <label for="campoCPF">CPF do Comprador:</label> <br />
-                        <input placeholder='Digite seu CPF...' type="text" id="campoCPF" /><br />
+                        <input placeholder='Digite seu CPF...' type="text" id="campoCPF" value={CPF} onChange={e => setCPF(e.target.value)} /><br />
                     </form>
-                    <Button>
+
+                    <Button onClick={() => postSeat()} >
                         <p>Reservar assento(s)</p>
                     </Button>
+
+
                 </StyleAssentos>
                 : <h1>Carregando...</h1>}
             {sessao.seats ? <Bottom title={sessao.movie.title} posterURL={sessao.movie.posterURL}
@@ -167,7 +203,7 @@ const StyleAssentos = styled.div`
 `;
 
 
-function Lugares({ index, idSessao, name, isAvailable, addIds, removeIds }) {
+function Lugares({ index, idAssento, name, isAvailable, addIds, removeIds }) {
 
     const [cor, setCor] = useState("");
 
@@ -177,10 +213,10 @@ function Lugares({ index, idSessao, name, isAvailable, addIds, removeIds }) {
             alert("Esse assento não está disponível")
         } else if (cor === "#8DD7CF") {
             setCor("#C3CFD9");
-            removeIds(idSessao);
+            removeIds(idAssento,name);
         } else {
             setCor("#8DD7CF")
-            addIds(idSessao);
+            addIds(idAssento,name);
         }
 
 
