@@ -8,7 +8,11 @@ function Horario({ weekday, date, showtimes }) {
     return (
         <StyledHorario>
             <span>{weekday} - {date}</span>
-            {showtimes ? showtimes.map(x => <div>{x.name}</div>) : "Sem Horario"}
+            {showtimes ? showtimes.map(x =>
+                <Link to={`/sessao/${x.id}`} style={{textDecoration:"none"}} >
+                    <div><p>{x.name}</p></div>
+                </Link>) 
+                : "Sem Horario"}
         </StyledHorario>
     );
 
@@ -37,23 +41,33 @@ const StyledHorario = styled.div`
         margin-left: 10px;
     }
 
+
+
     div{
         width: 88px;
         height: 46px;
         background: #E8833A;
         border-radius: 3px;
-
-        font-family: 'Roboto';
-        font-style: normal;
-        font-weight: 400;
-        font-size: 18px;
-        line-height: 21px;
         display: flex;
         align-items: center;
         justify-content:center;
         letter-spacing: 0.02em;
         margin: 28px 12px 28px 6px;
-        color: #FFFFFF;
+      
+       
     }
 
-`
+    && p{
+        
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 21px;
+        color: #FFFFFF;
+        cursor: pointer;
+    }
+
+  
+
+`;
