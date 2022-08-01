@@ -1,12 +1,11 @@
-import axios from 'axios';
-import { useState } from 'react';
-import { useParams } from 'react-router-dom';
+
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 
-function Sucesso() {
+function Sucesso({ title, dataHora, assentos, nome, cpf }) {
 
-
+    let navigate = useNavigate();
 
 
     return (
@@ -15,19 +14,24 @@ function Sucesso() {
                 com sucesso!</h1>
             <div>
                 <h2>Filme e sessão</h2>
-                <p>Title</p>
-                <p>dataHora</p>    
-            </div>    
+                <p>{title}</p>
+                <p>{dataHora}</p>
+            </div>
             <div>
                 <h2>Ingresso</h2>
-                <p>Title</p>
-                <p>dataHora</p>    
-            </div>   
+                {assentos.map(x => <p>{`Assento ${x}`}</p>)}
+
+
+            </div>
             <div>
                 <h2>Comprador</h2>
-                <p>Title</p>
-                <p>dataHora</p>    
-            </div> 
+                <p>{nome}</p>
+                <p>{cpf}</p>
+            </div>
+            <button onClick={() => navigate("/")}>
+                <p>Voltar pra Home</p>
+            </button>
+
         </StlyedSucesso>
     );
 
@@ -90,5 +94,33 @@ const StlyedSucesso = styled.div`
         height: auto;
         margin: 20px;
         padding-left: 40px;
+    }
+
+    button{
+        width: 225px;
+        height: 42px;
+        background: #E8833A;
+        border-radius: 3px;
+        border:none;
+        display: flex;
+        align-items: center;
+        text-align: center;
+        padding-left:36px;
+        margin-top: 36px;
+    }
+
+    button > p{
+        
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 21px;
+        display: flex;
+        text-align:center;
+        align-items: center;
+        text-align: center;
+        letter-spacing: 0.04em;
+        color: #FFFFFF;
     }
 `;
