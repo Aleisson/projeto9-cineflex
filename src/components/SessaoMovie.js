@@ -26,13 +26,13 @@ function SessaoMovie() {
 
 
 
-
     return (
+        
         <StyledSessao>
             <p>Selecione o(s) assento(s)</p>
             {sessao.seats ?
                 <StyleAssentos>
-                    <div>{sessao.seats.map((assento) => <Lugares name={assento.name} />)}</div>
+                    <div>{sessao.seats.map((assento) => <Lugares idSessao={assento.id} name={assento.name}  isAvailable={assento.isAvailable}/>)}</div>
                     <Display>
                         <div>
                             <BolinhaVerde />
@@ -59,8 +59,8 @@ function SessaoMovie() {
                     </Button>
                 </StyleAssentos>
                 : <h1>Carregando...</h1>}
-            <Bottom title={sessao.movie.title} posterURL={sessao.movie.posterURL}
-            session={`${sessao.day.weekday} - ${sessao.day.date}`}/>
+            {sessao.seats?<Bottom title={sessao.movie.title} posterURL={sessao.movie.posterURL}
+            session={`${sessao.day.weekday} - ${sessao.day.date}`}/>:<h1>Carregando...</h1>}
         </StyledSessao>
 
     );
@@ -156,10 +156,26 @@ const StyleAssentos = styled.div`
 `;
 
 
-function Lugares({ id, name, isAvaible }) {
+function Lugares({ index,idSessao, name, isAvailable}) {
+    
+    const[cor, setCor] = useState("");
+
+    function seleciona(isAvailable){
+
+        if(!isAvailable){
+            alert("Esse assento não está disponível")
+        } else if(cor === "#8DD7CF"){
+            setCor("#C3CFD9");
+        } else{
+            setCor("#8DD7CF")
+        }
+
+
+    }
+
     return (
-        <StyleLugares>
-            <p>{name}</p>
+        <StyleLugares  corStyle={!cor?isAvailable?"#C3CFD9": "#FBE192":cor}>
+            <p onClick={ () => seleciona(isAvailable)}>{name}</p>
         </StyleLugares>
     );
 }
@@ -167,7 +183,7 @@ function Lugares({ id, name, isAvaible }) {
 const StyleLugares = styled.div`
     width: 26px;
     height: 26px;
-    background: #C3CFD9;
+    background: ${props => props.corStyle };
     border: 1px solid #808F9D;
     border-radius: 12px;
     display: flex;
