@@ -9,6 +9,7 @@ function SessaoMovie() {
 
     const { idSessao } = useParams();
     const [sessao, setSessao] = useState({});
+    const [ids, setIds] = useState([]);
 
     useEffect(() => {
 
@@ -25,21 +26,31 @@ function SessaoMovie() {
     }, []);
 
 
+    function addIds(id) {
+        setIds([...ids, id]);
+    }
+
+    function removeIds(id) {
+        setIds(ids.filter(x => x !== id));
+    }
+
+    console.log("IDS: " + ids);
+
 
     return (
-        
+
         <StyledSessao>
             <p>Selecione o(s) assento(s)</p>
             {sessao.seats ?
                 <StyleAssentos>
-                    <div>{sessao.seats.map((assento) => <Lugares idSessao={assento.id} name={assento.name}  isAvailable={assento.isAvailable}/>)}</div>
+                    <div>{sessao.seats.map((assento) => <Lugares idSessao={assento.id} name={assento.name} isAvailable={assento.isAvailable} addIds={addIds} removeIds={removeIds} />)}</div>
                     <Display>
                         <div>
                             <BolinhaVerde />
                             <p>Seleionado</p>
                         </div>
                         <div>
-                            <Lugares />
+                            <Lugares isAvailable={true} />
                             <p>Disponivel</p>
                         </div>
                         <div>
@@ -59,8 +70,8 @@ function SessaoMovie() {
                     </Button>
                 </StyleAssentos>
                 : <h1>Carregando...</h1>}
-            {sessao.seats?<Bottom title={sessao.movie.title} posterURL={sessao.movie.posterURL}
-            session={`${sessao.day.weekday} - ${sessao.day.date}`}/>:<h1>Carregando...</h1>}
+            {sessao.seats ? <Bottom title={sessao.movie.title} posterURL={sessao.movie.posterURL}
+                session={`${sessao.day.weekday} - ${sessao.day.date}`} /> : <h1>Carregando...</h1>}
         </StyledSessao>
 
     );
@@ -156,26 +167,28 @@ const StyleAssentos = styled.div`
 `;
 
 
-function Lugares({ index,idSessao, name, isAvailable}) {
-    
-    const[cor, setCor] = useState("");
+function Lugares({ index, idSessao, name, isAvailable, addIds, removeIds }) {
 
-    function seleciona(isAvailable){
+    const [cor, setCor] = useState("");
 
-        if(!isAvailable){
+    function seleciona(isAvailable) {
+
+        if (!isAvailable) {
             alert("Esse assento não está disponível")
-        } else if(cor === "#8DD7CF"){
+        } else if (cor === "#8DD7CF") {
             setCor("#C3CFD9");
-        } else{
+            removeIds(idSessao);
+        } else {
             setCor("#8DD7CF")
+            addIds(idSessao);
         }
 
 
     }
 
     return (
-        <StyleLugares  corStyle={!cor?isAvailable?"#C3CFD9": "#FBE192":cor}>
-            <p onClick={ () => seleciona(isAvailable)}>{name}</p>
+        <StyleLugares corStyle={!cor ? isAvailable ? "#C3CFD9" : "#FBE192" : cor}>
+            <p onClick={() => seleciona(isAvailable)}>{name}</p>
         </StyleLugares>
     );
 }
@@ -183,7 +196,7 @@ function Lugares({ index,idSessao, name, isAvailable}) {
 const StyleLugares = styled.div`
     width: 26px;
     height: 26px;
-    background: ${props => props.corStyle };
+    background: ${props => props.corStyle};
     border: 1px solid #808F9D;
     border-radius: 12px;
     display: flex;
