@@ -12,7 +12,7 @@ https://www.figma.com/file/rc7ZTYfLZg9zpGahWB1aXb/Cineflex?node-id=0%3A1
 
 Repositório: https://github.com/Aleisson/projeto9-cineflex
 
-Deploy projeto:#
+Deploy projeto:https://projeto9-cineflex-five-lake.vercel.app/
 
 
 Tutor: Ernesto Junior da Turma 7 do grupo 2 - Driven.
