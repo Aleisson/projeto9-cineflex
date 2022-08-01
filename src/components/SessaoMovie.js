@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
+import Bottom from "./Bottom";
+
 
 function SessaoMovie() {
 
@@ -32,20 +34,33 @@ function SessaoMovie() {
                 <StyleAssentos>
                     <div>{sessao.seats.map((assento) => <Lugares name={assento.name} />)}</div>
                     <Display>
-                        <Lugares />
-                        <Lugares />
-                        <Lugares />
+                        <div>
+                            <BolinhaVerde />
+                            <p>Seleionado</p>
+                        </div>
+                        <div>
+                            <Lugares />
+                            <p>Disponivel</p>
+                        </div>
+                        <div>
+                            <BolinhaAmarela />
+                            <p>Indisponível</p>
+                        </div>
+
                     </Display>
                     <form>
                         <label for="campoNome">Nome do Comprador:</label><br />
-                        <input type="text" id="campoNome" /><br />
+                        <input placeholder='Digite seu nome...' type="text" id="campoNome" /><br />
                         <label for="campoCPF">CPF do Comprador:</label> <br />
-                        <input type="text" id="campoCPF" /><br />
+                        <input placeholder='Digite seu CPF...' type="text" id="campoCPF" /><br />
                     </form>
-
+                    <Button>
+                        <p>Reservar assento(s)</p>
+                    </Button>
                 </StyleAssentos>
                 : <h1>Carregando...</h1>}
-
+            <Bottom title={sessao.movie.title} posterURL={sessao.movie.posterURL}
+            session={`${sessao.day.weekday} - ${sessao.day.date}`}/>
         </StyledSessao>
 
     );
@@ -60,7 +75,7 @@ const StyledSessao = styled.div`
     width: 100%;
     height: auto; 
     margin-top:100px;
-    margin-bottom: 110px;
+    margin-bottom: 160px;
     padding: 10px;
     display:flex;
     flex-direction: column;
@@ -98,6 +113,7 @@ const StyledSessao = styled.div`
         line-height: 21px;
         display: flex;
         align-items: center;
+        margin-top: 10px;
     }
 
     input{
@@ -107,6 +123,19 @@ const StyledSessao = styled.div`
         border: 1px solid #D5D5D5;
         border-radius: 3px;
     }
+
+    input::placeholder{
+        font-family: 'Roboto';
+        font-style: italic;
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 21px;
+        display: flex;
+        align-items: center;
+
+        color: #AFAFAF;
+    }
+
 `;
 
 const StyleAssentos = styled.div`
@@ -156,6 +185,7 @@ const StyleLugares = styled.div`
         text-align: center;
         letter-spacing: 0.04em;
         color: #000000;
+        
     }
 
 `;
@@ -164,5 +194,82 @@ const Display = styled.div`
 
     width:100%;
     height:100px !important; 
-    background-color: red;
+    display:flex;
+    justify-content: center !important;
+    align-items: center !important;
+
+    && > div{
+   
+        display:flex;
+        flex-direction: column;
+      
+        width:100px;
+        height: 80px;
+    }
+
+    && p{
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 13px;
+        line-height: 15px;
+        display: flex;
+        align-items: center;
+        letter-spacing: -0.013em;
+        color: #4E5A65;
+        height: auto;
+
+    }
+`
+
+const BolinhaVerde = styled.div`
+
+    width: 25px;
+    height: 25px;
+    background: #8DD7CF;
+    border: 1px solid #1AAE9E;
+    border-radius: 17px;
+
+`
+
+const BolinhaAmarela = styled.div`
+
+    width: 24px;
+    height: 24px;
+    background: #FBE192;
+    border: 1px solid #F7C52B;
+    border-radius: 17px;
+
+`;
+
+const Button = styled.div`
+
+    width: 225px !important;
+    height: 42px !important;
+    background: #E8833A;
+    border-radius: 3px;
+    margin-top: 68px;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: start !important;
+    padding-bottom: 15px !important;
+   
+    
+
+    p{
+        width: auto;
+        height: auto;
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 21px;
+        display: flex;
+        align-items: center;
+        text-align: center;
+        letter-spacing: 0.04em;
+        color: #FFFFFF;
+        
+    }
+
 `
