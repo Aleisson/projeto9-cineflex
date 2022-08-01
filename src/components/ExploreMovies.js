@@ -1,43 +1,9 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react'; //hook
-import { Link } from 'react-router-dom';
+
 import styled from 'styled-components';
 
-
-
-function Poster({ idMovie, title, posterURL }) {
-
-    return (
-        <Link to = {idMovie?`/sessoes/${idMovie}`:""}>
-            <PosterStyle>
-                <img src={posterURL} alt={title ? title : ""} />
-            </PosterStyle>
-        </Link>
-
-    );
-
-
-}
-
-
-const PosterStyle = styled.div`
-
-    background: #FFFFFF;
-    box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.1);
-    border-radius: 3px;
-    width: 145px;
-    height: 209px;
-    padding: 8px;
-    margin: 8px;
-   
-
-    img{
-        width: 100%;
-        height: 100%;
-    }
-`;
-
-
+import Poster from  './Poster';
 
 function ExploreMovies() {
     const urlMovies = "https://mock-api.driven.com.br/api/v7/cineflex/movies";
@@ -65,9 +31,9 @@ function ExploreMovies() {
         <Posters>
             <p>Selecione o filme</p>
             <div>
-                {posters.map(
+                {posters? posters.map(
                     (poster) => <Poster idMovie={poster.id} posterURL={poster.posterURL} title={poster.title} />
-                )}
+                ): <h1>"Carregando..."</h1>}
             </div>
         </Posters>
     );
