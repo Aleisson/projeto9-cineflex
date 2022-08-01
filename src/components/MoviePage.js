@@ -21,7 +21,9 @@ function MoviePage() {
  
    
     const [horarios, setHorarios] =  useState({})
+
     const { idMovie } = useParams();
+
 
     
 
@@ -41,7 +43,7 @@ function MoviePage() {
         );
 
 
-    }, []);
+    });
 
 
 
@@ -50,7 +52,7 @@ function MoviePage() {
             <p>Selecione o horário</p>
             <Horarios>
 
-            {horarios.days.map((day) => <Horario weekday={day.weekday} date={day.date} showtimes={day.showtimes}/>)}
+            {horarios.days? horarios.days.map((day) => <Horario weekday={day.weekday} date={day.date} showtimes={day.showtimes}/>):<h1>Carregando...</h1>}
                 
             </Horarios>
         </ Movie>
