@@ -1,14 +1,35 @@
-import styled from "styled-components";
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
+import styled from 'styled-components';
 
 function SessaoMovie() {
+
+    const{idSessao} = useParams();
+    const [sessao, setSessao] = useState({});
+    
+    useEffect(() => {
+
+        const promise = axios.get(`https://mock-api.driven.com.br/api/v7/cineflex/showtimes/${idSessao}/seats`);
+
+        promise.then(
+            (res) => {
+                // console.log(res.data);
+                setSessao(res.data);
+            }
+        );
+
+
+    }, []);
+
 
 
     return (
         <StyledSessao>
             <p>Selecione o(s) assento(s)</p>
-            <Assentos>
+            <StyleAssentos>
 
-            </Assentos>
+            </StyleAssentos>
         </StyledSessao>
 
     );
@@ -44,7 +65,7 @@ const StyledSessao = styled.div`
 
 `;
 
-const Assentos = styled.div`
+const StyleAssentos = styled.div`
 
     display:flex;
     flex-direction:column;
