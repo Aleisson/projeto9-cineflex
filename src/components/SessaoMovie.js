@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
 import Bottom from "./Bottom";
@@ -16,6 +16,7 @@ function SessaoMovie({ popIngresso }) {
     const [nome, setNome] = useState("");
     const [CPF, setCPF] = useState("");
     const [post, setPost] = useState({});
+    let navigate = useNavigate();
 
     useEffect(() => {
 
@@ -62,6 +63,7 @@ function SessaoMovie({ popIngresso }) {
 
         post.then(x => console.log(x.status));
        
+        navigate("/sucesso")
 
     }
 

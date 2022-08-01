@@ -31,7 +31,7 @@ function App() {
                 <Route path="/" element={<ExploreMovies />} />
                 <Route path="/filme/:idMovie" element={<MoviePage />} />
                 <Route path="/sessao/:idSessao" element={<SessaoMovie popIngresso={popIngresso} />} />
-                <Route path="/sucesso/" element={<Sucesso />} />
+                <Route path="/sucesso" element={<Sucesso  title={ingresso.title} />} />
             </Routes>
         </BrowserRouter>
     );
