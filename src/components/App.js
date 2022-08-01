@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Topo from "./Topo";
 import ExploreMovies from "./ExploreMovies";
 import MoviePage from "./MoviePage";
+import SessaoMovie from "./SessaoMovie";
 
 function App() {
 
@@ -15,7 +16,7 @@ function App() {
             <Routes>
                 <Route path="/" element={<ExploreMovies />} />
                 <Route path="/filme/:idMovie" element={<MoviePage />} />
-                <Route path="/sessao/:idSessao" element={<MoviePage />} />
+                <Route path="/sessao/:idSessao" element={<SessaoMovie />} />
             </Routes>
         </BrowserRouter>
     );
