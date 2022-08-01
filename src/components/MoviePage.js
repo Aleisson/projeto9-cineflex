@@ -16,24 +16,85 @@ function Horario({ weekday, date, showtimes }) {
 
 }
 
+function Bottom({ title, posterURL, session }) {
+
+    
+    return (
+        <StyledBotton >
+            <div><img src={posterURL} alt={title} /></div>
+            
+            <p>{title} <br />{session? session: ""}</p>
+            
+           
+
+        </StyledBotton>
+    );
+}
+
+const StyledBotton = styled.div`
+
+    position: fixed;
+    width: 100%;
+    height: 118px;
+    left: 0px;
+    bottom: 0px;
+    background: #DFE6ED;
+    border: 1px solid #9EADBA;
+    display: flex;
+    
+   
+    
+    div{
+        background: #FFFFFF;
+        border-radius: 3px;
+        width: 48px;
+        height: 72px;
+        padding: 8px;
+        margin: 8px;
+     
+    }
+
+    img{
+        width: 48px;
+        height: 72px; 
+    }
+
+    && p{
+       
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 24px;
+        line-height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: start;
+        color: #293845;
+        
+
+    }
+`;
+
+
+
 
 function MoviePage() {
- 
-   
-    const [horarios, setHorarios] =  useState({})
+
+
+    const [horarios, setHorarios] = useState({})
 
     const { idMovie } = useParams();
 
 
-    
+
 
     // console.log("ID Movie " + idMovie);
 
     useEffect(() => {
-       
+
         // alert(urlMovies + `/${idMovie}/showtimes`)
 
-        const promise = axios.get( `https://mock-api.driven.com.br/api/v7/cineflex/movies/${idMovie}/showtimes`);
+        const promise = axios.get(`https://mock-api.driven.com.br/api/v7/cineflex/movies/${idMovie}/showtimes`);
 
         promise.then(
             (res) => {
@@ -43,8 +104,7 @@ function MoviePage() {
         );
 
 
-    });
-
+    },[]);
 
 
     return (
@@ -52,9 +112,11 @@ function MoviePage() {
             <p>Selecione o horário</p>
             <Horarios>
 
-            {horarios.days? horarios.days.map((day) => <Horario weekday={day.weekday} date={day.date} showtimes={day.showtimes}/>):<h1>Carregando...</h1>}
-                
+                {horarios.days ?
+                    horarios.days.map((day) =>
+                        <Horario weekday={day.weekday} date={day.date} showtimes={day.showtimes} />) : <h1>Carregando...</h1>}
             </Horarios>
+            {horarios.days ? <Bottom title={horarios.title} posterURL={horarios.posterURL}/> : <h1>Carregando...</h1>}
         </ Movie>
     );
 
@@ -67,7 +129,8 @@ const Movie = styled.div`
     width: 100%;
     height: auto; 
     margin-top:100px;
-    margin-bottom: 100px;
+    margin-bottom: 110px;
+    padding: 10px;
 
     p{
         font-family: 'Roboto';
