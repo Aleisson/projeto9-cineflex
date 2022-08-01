@@ -6,8 +6,11 @@ function Bottom({ title, posterURL, session }) {
     return (
         <StyledBottom >
             <div><img src={posterURL} alt={title} /></div>
+            <div>
+            <p>{title} </p>
+            <p>{session? session: ""}</p> 
+            </div>
             
-            <p>{title} <br />{session? session: ""}</p>
             
            
 
@@ -27,11 +30,17 @@ const StyledBottom = styled.div`
     background: #DFE6ED;
     border: 1px solid #9EADBA;
     display: flex;
+    justify-content: flex-start !important;
      
     div{
-        background: #FFFFFF;
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        justify-content:center;
+        justify-items:center;
+        /* background: #FFFFFF; */
         border-radius: 3px;
-        width: 48px;
+        width: auto;
         height: 72px;
         padding: 8px;
         margin: 8px;
@@ -39,20 +48,22 @@ const StyledBottom = styled.div`
     }
 
     img{
-        width: 48px;
-        height: 72px; 
+        width: 52px;
+        height: 74px;
+        background-color: #FFFFFF;
+        padding:6px;
     }
 
-    && p{
-       
+    p{
+        margin:0 !important;
         font-family: 'Roboto';
         font-style: normal;
         font-weight: 400;
-        font-size: 24px;
+        font-size: 22px !important;
         line-height: 30px;
-        display: flex;
-        align-items: center;
-        justify-content: start;
+        display: flex !important;
+        align-items: flex-start !important;
+        justify-content: flex-start !important;
         color: #293845;
         
 

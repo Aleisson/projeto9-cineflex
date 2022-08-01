@@ -97,19 +97,19 @@ const StlyedSucesso = styled.div`
     }
 
     button{
-        width: 225px;
-        height: 42px;
+        width: 225px !important;
+        height: 42px !important;
         background: #E8833A;
         border-radius: 3px;
         border:none;
-        display: flex;
-        align-items: center;
-        text-align: center;
-        padding-left:36px;
+        display: flex !important;
+        align-items: center !important; 
+        text-align: center !important;
+        justify-content:center;
         margin-top: 36px;
     }
 
-    button > p{
+     button > p{
         
         font-family: 'Roboto';
         font-style: normal;
@@ -117,9 +117,9 @@ const StlyedSucesso = styled.div`
         font-size: 18px;
         line-height: 21px;
         display: flex;
-        text-align:center;
-        align-items: center;
-        text-align: center;
+        text-align:center !important;
+        align-items: center !important;
+        text-align: center !important;
         letter-spacing: 0.04em;
         color: #FFFFFF;
     }

@@ -33,42 +33,42 @@ function SessaoMovie({ popIngresso }) {
     }, []);
 
 
-    function addCadeiras(id,name) {
+    function addCadeiras(id, name) {
         setIds([...ids, id]);
-        setNumCadeira([...numCadeira,name])
+        setNumCadeira([...numCadeira, name])
     }
 
-    function removeCadeiras(id,name) {
+    function removeCadeiras(id, name) {
         setIds(ids.filter(x => x !== id));
         setNumCadeira(numCadeira.filter(x => x !== name))
     }
 
 
-    function postSeat() {
+    function postSeat(e) {
 
         // console.log(`{ids: ${ids}, name: ${nome}, cpf: ${CPF}}`)
-
+        e.preventDefault();
         const post = axios.post("https://mock-api.driven.com.br/api/v7/cineflex/seats/book-many", { ids: ids, name: nome, cpf: CPF });
 
-        
-        
-        popIngresso(sessao.movie.title,`${sessao.day.weekday} - ${sessao.day.date}`, numCadeira, ids, nome, CPF);
 
 
-        
+        popIngresso(sessao.movie.title, `${sessao.day.weekday} - ${sessao.day.date}`, numCadeira, ids, nome, CPF);
+
+
+
         setPost()
         setIds([]);
         setNome("");
         setCPF("");
 
         post.then(x => console.log(x.status));
-       
+
         navigate("/sucesso")
 
     }
 
-     console.log("IDS: " + ids);
-     console.log("NumCadeira: " + numCadeira);
+    // console.log("IDS: " + ids);
+    // console.log("NumCadeira: " + numCadeira);
     // console.log("Nome: " + nome);
     // console.log("CPF: " + CPF);
 
@@ -94,16 +94,18 @@ function SessaoMovie({ popIngresso }) {
                         </div>
 
                     </Display>
-                    <form>
+                    <form id="nameform" onSubmit={postSeat}>
                         <label for="campoNome">Nome do Comprador:</label><br />
-                        <input placeholder='Digite seu nome...' type="text" id="campoNome" value={nome} onChange={e => setNome(e.target.value)} /><br />
+                        <input placeholder='Digite seu nome...' type="text" id="campoNome" value={nome} onChange={e => setNome(e.target.value)} required/><br />
                         <label for="campoCPF">CPF do Comprador:</label> <br />
-                        <input placeholder='Digite seu CPF...' type="text" id="campoCPF" value={CPF} onChange={e => setCPF(e.target.value)} /><br />
+                        <input placeholder='Digite seu CPF...' type="text" id="campoCPF" value={CPF} onChange={e => setCPF(e.target.value)} pattern="([0-9]{2}[\.]?[0-9]{3}[\.]?[0-9]{3}[\/]?[0-9]{4}[-]?[0-9]{2})|([0-9]{3}[\.]?[0-9]{3}[\.]?[0-9]{3}[-]?[0-9]{2})" required/><br />
+
+                        <Button type='submit' form="nameform" value="Submit"  >
+                            <p>Reservar assento(s)</p>
+                        </Button>
                     </form>
 
-                    <Button onClick={() => postSeat()} >
-                        <p>Reservar assento(s)</p>
-                    </Button>
+
 
 
                 </StyleAssentos>
@@ -215,10 +217,10 @@ function Lugares({ index, idAssento, name, isAvailable, addIds, removeIds }) {
             alert("Esse assento não está disponível")
         } else if (cor === "#8DD7CF") {
             setCor("#C3CFD9");
-            removeIds(idAssento,name);
+            removeIds(idAssento, name);
         } else {
             setCor("#8DD7CF")
-            addIds(idAssento,name);
+            addIds(idAssento, name);
         }
 
 
@@ -309,17 +311,17 @@ const BolinhaAmarela = styled.div`
 
 `;
 
-const Button = styled.div`
+const Button = styled.button`
 
     width: 225px !important;
     height: 42px !important;
     background: #E8833A;
     border-radius: 3px;
-    margin-top: 68px;
+   margin: 68px auto 0 auto;
     display: flex !important;
     justify-content: center !important;
-    align-items: start !important;
-    padding-bottom: 15px !important;
+    align-items: center !important;
+    border:none;
    
     
 
