@@ -4,7 +4,7 @@ import styled from 'styled-components';
 function Poster({ idMovie, title, posterURL }) {
 
     return (
-        <Link to = {idMovie?`/sessoes/${idMovie}`:""}>
+        <Link to = {idMovie?`/filme/${idMovie}`:""}>
             <PosterStyle>
                 <img src={posterURL} alt={title ? title : ""} />
             </PosterStyle>
